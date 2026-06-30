@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Restrito</title>
+   
+    <!-- Configurações para iPhone (PWA) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f0c29">
+
+    <!-- Fontes do Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ESTILOS GERAIS E ANIMAÇÕES */
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            /* Fundo animado em gradiente */
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #ffffff;
+            font-family: 'Fira Code', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* EFEITO DE VIDRO (GLASSMORPHISM) */
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 450px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #d1d1e0;
+        }
+
+        .dica-texto {
+            font-size: 16px;
+            color: #00ffcc;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        /* INPUTS E BOTÕES */
+        input {
+            padding: 15px;
+            margin: 20px 0;
+            width: 100%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            color: #00ffcc;
+            font-size: 16px;
+            font-family: 'Fira Code', monospace;
+            text-align: center;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #00ffcc;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+        }
+
+        button {
+            padding: 15px 30px;
+            width: 100%;
+            background: linear-gradient(45deg, #e94560, #d13b53);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(233, 69, 96, 0.6);
+        }
+
+        /* MENSAGEM DE ERRO COM ANIMAÇÃO DE TREMER */
+        #mensagem-erro {
+            color: #ff4d4d;
+            display: none;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TELA DE RECOMPENSA */
+        #recompensa {
+            display: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .coracao {
+            color: #e94560;
+            font-size: 60px;
+            animation: pulse 1.5s infinite;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(233, 69, 96, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* CONTADOR DE TEMPO */
+        .contador {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tempo-titulo {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00ffcc;
+            margin-bottom: 10px;
+        }
+
+        .tempo-numeros {
+            font-family: 'Fira Code', monospace;
+            font-size: 18px;
+            color: #fff;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .tempo-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tempo-box span {
+            font-size: 10px;
+            color: #a3a3c2;
+            margin-top: 5px;
+        }
+
+        /* INDICADOR DE FASES */
+        .progresso {
+            font-size: 12px;
+            color: #a3a3c2;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- TELA DE LOGIN DO COFRE -->
+    <div class="container" id="tela-cofre">
+        <h2>🔒 FIREWALL ATIVADO</h2>
+        <div class="progresso" id="texto-progresso">Nível 1 de X</div>
+        <p>Acesso restrito. Insira a chave de segurança para avançar.</p>
+       
+        <div class="dica-texto" id="texto-dica">Carregando dica...</div>
+       
+        <input type="password" id="senha" placeholder="Digite a senha..." autocomplete="off">
+        <br>
+        <button onclick="verificarSenha()">DESCRIPTOGRAFAR</button>
+        <p id="mensagem-erro">Acesso Negado. Senha incorreta.</p>
+    </div>
+
+    <!-- TELA DE SUCESSO (A SURPRESA) -->
+    <div class="container" id="recompensa">
+        <div class="coracao">❤️</div>
+        <h2>Acesso Concedido</h2>
+        <p style="font-size: 18px; color: white;">Você invadiu meu coração com sucesso.</p>
+        <p>Amo você mais do que palavras podem descrever. Esse é só um pedacinho do meu amor convertido em código.</p>
+       
+        <!-- CONTADOR DE TEMPO -->
+        <div class="contador">
+            <div class="tempo-titulo">Tempo de Conexão</div>
+            <div class="tempo-numeros">
+                <div class="tempo-box"><b id="dias">00</b> <span>DIAS</span></div>
+                <div class="tempo-box"><b id="horas">00</b> <span>HRS</span></div>
+                <div class="tempo-box"><b id="minutos">00</b> <span>MIN</span></div>
+                <div class="tempo-box"><b id="segundos">00</b> <span>SEG</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. CONFIGURE AQUI AS FASES DO SEU APP
+        // ==========================================
+        const fases = [
+            {
+                dica: "Onde foi nosso primeiro encontro?",
+                senha: "parque" // Deixe sempre em letras minúsculas
+            },
+            {
+                dica: "Qual a data do nosso namoro...? (dd/mm/aaaa)",
+                senha: "16/06/2016"
+            },
+            {
+                dica: "Quem disse: te amo primeiro? ",
+                senha: "ele"
+            }
+        ];
+
+        let faseAtual = 0;
+
+        // Função para carregar a tela da fase atual
+        function carregarFase() {
+            document.getElementById('texto-progresso').innerText = `Nível ${faseAtual + 1} de ${fases.length}`;
+            document.getElementById('texto-dica').innerText = fases[faseAtual].dica;
+            document.getElementById('senha').value = ''; // Limpa o input
+            document.getElementById('senha').focus();
+        }
+
+        // Inicializa a primeira fase ao abrir o app
+        carregarFase();
+
+        // ==========================================
+        // 2. LÓGICA DE VALIDAÇÃO DE SENHA
+        // ==========================================
+        function verificarSenha() {
+            const senhaDigitada = document.getElementById('senha').value.toLowerCase().trim();
+            const cofre = document.getElementById('tela-cofre');
+            const erro = document.getElementById('mensagem-erro');
+
+            if (senhaDigitada === fases[faseAtual].senha) {
+                // ACERTOU!
+                erro.style.display = 'none';
+                faseAtual++;
+
+                if (faseAtual < fases.length) {
+                    // Vai para a próxima fase
+                    carregarFase();
+                } else {
+                    // Zerou o jogo! Mostra a recompensa
+                    document.body.style.background = "linear-gradient(135deg, #1f1c2c, #928dab)"; // Muda o fundo para um tom mais romântico
+                    cofre.style.display = 'none';
+                    document.getElementById('recompensa').style.display = 'block';
+                    iniciarContador(); // Inicia o timer
+                }
+            } else {
+                // ERROU!
+                erro.style.display = 'block';
+                cofre.classList.remove('shake');
+                void cofre.offsetWidth; // Força o reflow para a animação reiniciar
+                cofre.classList.add('shake');
+                document.getElementById('senha').value = '';
+            }
+        }
+
+        // Permite dar 'Enter' para enviar a senha
+        document.getElementById("senha").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                verificarSenha();
+            }
+        });
+
+        // ==========================================
+        // 3. LÓGICA DO CONTADOR DE TEMPO
+        // ==========================================
+        function iniciarContador() {
+            // DATA INICIAL: 19 de Junho de 2026, às 11:40:00
+            // O formato no JS é: Ano, Mês (0-11, onde Janeiro é 0 e Junho é 5), Dia, Hora, Minuto, Segundo
+            const dataInicio = new Date(2026, 5, 19, 11, 40, 0).getTime();
+
+            setInterval(function() {
+                const agora = new Date().getTime();
+                const diferenca = agora - dataInicio;
+
+                // Cálculos matemáticos para extrair tempo
+                const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+                // Formatação para sempre ter dois dígitos (ex: 09 em vez de 9)
+                document.getElementById("dias").innerText = dias.toString().padStart(2, '0');
+                document.getElementById("horas").innerText = horas.toString().padStart(2, '0');
+                document.getElementById("minutos").innerText = minutos.toString().padStart(2, '0');
+                document.getElementById("segundos").innerText = segundos.toString().padStart(2, '0');
+            }, 1000); // Atualiza a cada 1 segundo
+        }
+    </script>
+
+</body>
+</html>
