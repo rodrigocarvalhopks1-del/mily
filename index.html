@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acesso Restrito</title>
    
-    <!-- Configurações para iPhone (PWA) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0f0c29">
 
-    <!-- Fontes do Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Montserrat:wght@400;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 
     <style>
         /* ESTILOS GERAIS E ANIMAÇÕES */
@@ -21,7 +19,6 @@
         }
 
         body {
-            /* Fundo animado em gradiente */
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
@@ -34,6 +31,7 @@
             margin: 0;
             text-align: center;
             overflow: hidden;
+            position: relative;
         }
 
         @keyframes gradientBG {
@@ -54,6 +52,30 @@
             width: 90%;
             max-width: 450px;
             animation: fadeIn 1s ease-in-out;
+            z-index: 10;
+        }
+
+        /* ESTILO FOFO PARA A TELA DE RECOMPENSA */
+        .container.fofa {
+            background: rgba(255, 240, 245, 0.85);
+            border: 2px solid #ffb3c6;
+            color: #ff477e;
+            box-shadow: 0 15px 35px rgba(255, 71, 126, 0.2);
+        }
+
+        .container.fofa h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.8rem;
+            color: #ff477e;
+            text-transform: none;
+            letter-spacing: 0;
+            margin-bottom: 5px;
+        }
+
+        .container.fofa p {
+            color: #ff7096;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
         }
 
         h2 {
@@ -116,6 +138,72 @@
             box-shadow: 0 8px 20px rgba(233, 69, 96, 0.6);
         }
 
+        /* SEÇÃO DE SAUDADES */
+        .secao-saudade {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-saudade {
+            background: linear-gradient(45deg, #ff477e, #ff7096);
+            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.3);
+            font-size: 14px;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+        }
+
+        .btn-saudade:hover {
+            box-shadow: 0 8px 20px rgba(255, 71, 126, 0.5);
+        }
+
+        .contador-saudade {
+            font-size: 12px;
+            color: #ffb3c6;
+        }
+
+        .contador-saudade span {
+            font-weight: bold;
+            color: #ff477e;
+        }
+
+        /* JOGUINHO DO AMOR */
+        .area-jogo {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px dashed #ff7096;
+            height: 150px;
+            border-radius: 15px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .titulo-jogo {
+            font-size: 11px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            color: #ff477e;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        #alvo-coracao {
+            font-size: 30px;
+            position: absolute;
+            cursor: pointer;
+            user-select: none;
+            left: 45%;
+            top: 35%;
+            transition: all 0.15s ease-out; /* Deixa a fuga mais fluida */
+        }
+
+        #placar {
+            font-size: 12px;
+            font-weight: bold;
+            color: #ff477e;
+            margin-top: 5px;
+        }
+
         /* MENSAGEM DE ERRO COM ANIMAÇÃO DE TREMER */
         #mensagem-erro {
             color: #ff4d4d;
@@ -144,14 +232,13 @@
         /* TELA DE RECOMPENSA */
         #recompensa {
             display: none;
-            font-family: 'Montserrat', sans-serif;
         }
 
-        .coracao {
+        .coracao-principal {
             color: #e94560;
             font-size: 60px;
             animation: pulse 1.5s infinite;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-shadow: 0 0 20px rgba(233, 69, 96, 0.6);
         }
 
@@ -161,7 +248,44 @@
             100% { transform: scale(1); }
         }
 
-        /* CONTADOR DE TEMPO */
+        /* CHUVA DE CORAÇÕES */
+        .coracao-caindo {
+            position: absolute;
+            top: -30px;
+            font-family: Arial, sans-serif;
+            line-height: 1;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: queda linear forwards;
+        }
+
+        @keyframes queda {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
+
+        /* CONTADOR DE TEMPO FOFO */
+        .container.fofa .contador {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid #ffc2d1;
+            margin-top: 20px;
+        }
+
+        .container.fofa .tempo-titulo {
+            color: #ff477e;
+            font-weight: bold;
+        }
+
+        .container.fofa .tempo-numeros {
+            color: #ff477e;
+        }
+
+        .container.fofa .tempo-box span {
+            color: #ff7096;
+        }
+
         .contador {
             background: rgba(0, 0, 0, 0.3);
             padding: 20px;
@@ -208,8 +332,15 @@
 </head>
 <body>
 
-    <!-- TELA DE LOGIN DO COFRE -->
     <div class="container" id="tela-cofre">
+        
+        <div class="secao-saudade">
+            <button class="btn-saudade" onclick="marcarSaudade()">Estou com saudades! 🥺❤️</button>
+            <div class="contador-saudade">
+                Batidas de saudade: <span id="num-saudades">0</span>
+            </div>
+        </div>
+
         <h2>🔒 FIREWALL ATIVADO</h2>
         <div class="progresso" id="texto-progresso">Nível 1 de X</div>
         <p>Acesso restrito. Insira a chave de segurança para avançar.</p>
@@ -222,14 +353,18 @@
         <p id="mensagem-erro">Acesso Negado. Senha incorreta.</p>
     </div>
 
-    <!-- TELA DE SUCESSO (A SURPRESA) -->
-    <div class="container" id="recompensa">
-        <div class="coracao">❤️</div>
-        <h2>Acesso Concedido</h2>
-        <p style="font-size: 18px; color: white;">Você invadiu meu coração com sucesso.</p>
-        <p>Amo você mais do que palavras podem descrever. Esse é só um pedacinho do meu amor convertido em código.</p>
+    <div class="container fofa" id="recompensa">
+        <div class="coracao-principal">❤️</div>
+        <h2>Acesso Concedido!</h2>
+        <p style="font-size: 16px; font-weight: bold;">Você invadiu meu coração com sucesso.</p>
+        <p style="font-size: 13px;">Eu amo você mais do que tudo! Para comemorar, tente pegar o meu coração no joguinho abaixo:</p>
        
-        <!-- CONTADOR DE TEMPO -->
+        <div class="area-jogo">
+            <div class="titulo-jogo">✨ Pegue meu Coração ✨</div>
+            <div id="alvo-coracao" onmouseover="fugirCoracao()" onclick="ganharPonto()">❤️</div>
+        </div>
+        <div id="placar">Pontos de Amor Coletados: <span id="pontos-amor">0</span></div>
+
         <div class="contador">
             <div class="tempo-titulo">Tempo de Conexão</div>
             <div class="tempo-numeros">
@@ -243,12 +378,97 @@
 
     <script>
         // ==========================================
-        // 1. CONFIGURE AQUI AS FASES DO SEU APP
+        // 1. CHUVA CONSTANTE DE CORAÇÕES
+        // ==========================================
+        function criarCoracao() {
+            const coracao = document.createElement('div');
+            coracao.classList.add('coracao-caindo');
+            
+            const modelos = ['❤️', '💖', '💗', '💕', '✨'];
+            coracao.innerText = modelos[Math.floor(Math.random() * modelos.length)];
+            
+            coracao.style.left = Math.random() * 100 + "vw";
+            
+            const tamanho = Math.random() * 20 + 12; 
+            coracao.style.fontSize = tamanho + "px";
+            
+            const duracao = Math.random() * 3 + 4; 
+            coracao.style.animationDuration = duracao + "s";
+            
+            coracao.style.opacity = Math.random() * 0.6 + 0.4;
+
+            document.body.appendChild(coracao);
+
+            setTimeout(() => {
+                coracao.remove();
+            }, duracao * 1000);
+        }
+
+        // Gera corações continuamente a cada 350ms
+        setInterval(criarCoracao, 350);
+
+        // ==========================================
+        // 2. LÓGICA DO MARCADOR DE SAUDADES
+        // ==========================================
+        let cliquesSaudade = localStorage.getItem('contadorSaudades') || 0;
+        document.getElementById('num-saudades').innerText = cliquesSaudade;
+
+        function marcarSaudade() {
+            cliquesSaudade++;
+            document.getElementById('num-saudades').innerText = cliquesSaudade;
+            localStorage.setItem('contadorSaudades', cliquesSaudade);
+            
+            // Solta uma rajada de corações ao clicar!
+            for(let i = 0; i < 6; i++) {
+                setTimeout(criarCoracao, i * 80);
+            }
+        }
+
+        // ==========================================
+        // 3. JOGUINHO DO AMOR: CORAÇÃO FUGAZ
+        // ==========================================
+        let pontosAmor = 0;
+
+        function fugirCoracao() {
+            const coracao = document.getElementById('alvo-coracao');
+            
+            // Define limites para o coração não sair de dentro do quadrado pontilhado
+            const larguraMax = 85; 
+            const alturaMax = 65;  
+            
+            const aleatorioX = Math.floor(Math.random() * larguraMax);
+            const aleatorioY = Math.floor(Math.random() * alturaMax);
+            
+            coracao.style.left = aleatorioX + "%";
+            coracao.style.top = aleatorioY + "%";
+        }
+
+        function ganharPonto() {
+            pontosAmor++;
+            document.getElementById('pontos-amor').innerText = pontosAmor;
+            
+            // Troca temporariamente o emoji para comemorar o clique
+            const coracao = document.getElementById('alvo-coracao');
+            coracao.innerText = '💖';
+            
+            // Explode corações extras na tela
+            for(let i = 0; i < 10; i++) {
+                setTimeout(criarCoracao, i * 50);
+            }
+
+            setTimeout(() => {
+                coracao.innerText = '❤️';
+                fugirCoracao(); // Muda de posição após ser pego
+            }, 300);
+        }
+
+        // ==========================================
+        // 4. CONFIGURE AQUI AS FASES DO SEU APP
         // ==========================================
         const fases = [
             {
                 dica: "Onde foi nosso primeiro encontro?",
-                senha: "parque" // Deixe sempre em letras minúsculas
+                senha: "parque" 
             },
             {
                 dica: "Qual a data do nosso namoro...? (dd/mm/aaaa)",
@@ -262,19 +482,17 @@
 
         let faseAtual = 0;
 
-        // Função para carregar a tela da fase atual
         function carregarFase() {
             document.getElementById('texto-progresso').innerText = `Nível ${faseAtual + 1} de ${fases.length}`;
             document.getElementById('texto-dica').innerText = fases[faseAtual].dica;
-            document.getElementById('senha').value = ''; // Limpa o input
+            document.getElementById('senha').value = ''; 
             document.getElementById('senha').focus();
         }
 
-        // Inicializa a primeira fase ao abrir o app
         carregarFase();
 
         // ==========================================
-        // 2. LÓGICA DE VALIDAÇÃO DE SENHA
+        // 5. LÓGICA DE VALIDAÇÃO DE SENHA
         // ==========================================
         function verificarSenha() {
             const senhaDigitada = document.getElementById('senha').value.toLowerCase().trim();
@@ -282,31 +500,27 @@
             const erro = document.getElementById('mensagem-erro');
 
             if (senhaDigitada === fases[faseAtual].senha) {
-                // ACERTOU!
                 erro.style.display = 'none';
                 faseAtual++;
 
                 if (faseAtual < fases.length) {
-                    // Vai para a próxima fase
                     carregarFase();
                 } else {
-                    // Zerou o jogo! Mostra a recompensa
-                    document.body.style.background = "linear-gradient(135deg, #1f1c2c, #928dab)"; // Muda o fundo para um tom mais romântico
+                    // MUDANÇA PARA O TEMA FOFO E SELEÇÃO DE RECOMPENSA
+                    document.body.style.background = "linear-gradient(135deg, #ffc2d1, #ffe5ec, #e8dbfc)"; 
                     cofre.style.display = 'none';
                     document.getElementById('recompensa').style.display = 'block';
-                    iniciarContador(); // Inicia o timer
+                    iniciarContador(); 
                 }
             } else {
-                // ERROU!
                 erro.style.display = 'block';
                 cofre.classList.remove('shake');
-                void cofre.offsetWidth; // Força o reflow para a animação reiniciar
+                void cofre.offsetWidth; 
                 cofre.classList.add('shake');
                 document.getElementById('senha').value = '';
             }
         }
 
-        // Permite dar 'Enter' para enviar a senha
         document.getElementById("senha").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
@@ -315,29 +529,25 @@
         });
 
         // ==========================================
-        // 3. LÓGICA DO CONTADOR DE TEMPO
+        // 6. LÓGICA DO CONTADOR DE TEMPO
         // ==========================================
         function iniciarContador() {
-            // DATA INICIAL: 19 de Junho de 2026, às 11:40:00
-            // O formato no JS é: Ano, Mês (0-11, onde Janeiro é 0 e Junho é 5), Dia, Hora, Minuto, Segundo
             const dataInicio = new Date(2026, 5, 19, 11, 40, 0).getTime();
 
             setInterval(function() {
                 const agora = new Date().getTime();
                 const diferenca = agora - dataInicio;
 
-                // Cálculos matemáticos para extrair tempo
                 const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
                 const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
                 const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
 
-                // Formatação para sempre ter dois dígitos (ex: 09 em vez de 9)
                 document.getElementById("dias").innerText = dias.toString().padStart(2, '0');
                 document.getElementById("horas").innerText = horas.toString().padStart(2, '0');
                 document.getElementById("minutos").innerText = minutos.toString().padStart(2, '0');
                 document.getElementById("segundos").innerText = segundos.toString().padStart(2, '0');
-            }, 1000); // Atualiza a cada 1 segundo
+            }, 1000); 
         }
     </script>
 
