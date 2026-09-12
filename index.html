@@ -138,6 +138,43 @@
             box-shadow: 0 8px 20px rgba(233, 69, 96, 0.6);
         }
 
+        /* GALERIA DE FOTOS (NOSSAS MEMÓRIAS) */
+        .galeria-memorias {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .titulo-galeria {
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            color: #ff7096;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        .fotos-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .fotos-container img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #00ffcc;
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+            transition: all 0.3s ease;
+        }
+        .fotos-container img:hover {
+            transform: scale(1.1);
+            border-color: #ff477e;
+            box-shadow: 0 8px 20px rgba(255, 71, 126, 0.5);
+            z-index: 2;
+        }
+
         /* SEÇÃO DE SAUDADES */
         .secao-saudade {
             margin-bottom: 25px;
@@ -167,7 +204,44 @@
             color: #ff477e;
         }
 
-        /* JOGUINHO DO AMOR */
+        /* NOVA FASE: JOGO DE SÍMBOLOS */
+        #area-simbolos {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .container-simbolos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .simbolo-btn {
+            font-size: 35px;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .simbolo-btn:hover {
+            border-color: #ff7096;
+            background: rgba(255, 112, 150, 0.1);
+            transform: scale(1.15);
+            box-shadow: 0 0 15px rgba(255, 112, 150, 0.4);
+        }
+        .simbolo-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* JOGUINHO DO AMOR (RECOMPENSA) */
         .area-jogo {
             background: rgba(255, 255, 255, 0.5);
             border: 2px dashed #ff7096;
@@ -194,7 +268,7 @@
             user-select: none;
             left: 45%;
             top: 35%;
-            transition: all 0.15s ease-out; /* Deixa a fuga mais fluida */
+            transition: all 0.15s ease-out;
         }
 
         #placar {
@@ -334,6 +408,15 @@
 
     <div class="container" id="tela-cofre">
         
+        <!-- NOVA GALERIA DE FOTOS -->
+        <div class="galeria-memorias">
+            <h3 class="titulo-galeria">Nossas Memórias ✨</h3>
+            <div class="fotos-container">
+                <img src="IMG_20260829_000757_786.jpg" alt="Nossa Memória 1">
+                <img src="IMG_20260829_000757_174.jpg" alt="Nossa Memória 2">
+            </div>
+        </div>
+
         <div class="secao-saudade">
             <button class="btn-saudade" onclick="marcarSaudade()">Estou com saudades! 🥺❤️</button>
             <div class="contador-saudade">
@@ -347,10 +430,23 @@
        
         <div class="dica-texto" id="texto-dica">Carregando dica...</div>
        
-        <input type="password" id="senha" placeholder="Digite a senha..." autocomplete="off">
-        <br>
-        <button onclick="verificarSenha()">DESCRIPTOGRAFAR</button>
-        <p id="mensagem-erro">Acesso Negado. Senha incorreta.</p>
+        <!-- ÁREA PADRÃO (SENHA DE TEXTO) -->
+        <div id="area-texto">
+            <input type="password" id="senha" placeholder="Digite a senha..." autocomplete="off">
+            <br>
+            <button onclick="verificarSenha()">DESCRIPTOGRAFAR</button>
+        </div>
+
+        <!-- NOVA ÁREA (JOGO DE SÍMBOLOS - INVISÍVEL POR PADRÃO) -->
+        <div id="area-simbolos" style="display: none;">
+            <div class="container-simbolos">
+                <div class="simbolo-btn" onclick="clicarSimbolo('✨')">✨</div>
+                <div class="simbolo-btn" onclick="clicarSimbolo('💖')">💖</div>
+                <div class="simbolo-btn" onclick="clicarSimbolo('🌸')">🌸</div>
+            </div>
+        </div>
+
+        <p id="mensagem-erro">Acesso Negado. Tente novamente.</p>
     </div>
 
     <div class="container fofa" id="recompensa">
@@ -404,7 +500,6 @@
             }, duracao * 1000);
         }
 
-        // Gera corações continuamente a cada 350ms
         setInterval(criarCoracao, 350);
 
         // ==========================================
@@ -418,27 +513,22 @@
             document.getElementById('num-saudades').innerText = cliquesSaudade;
             localStorage.setItem('contadorSaudades', cliquesSaudade);
             
-            // Solta uma rajada de corações ao clicar!
             for(let i = 0; i < 6; i++) {
                 setTimeout(criarCoracao, i * 80);
             }
         }
 
         // ==========================================
-        // 3. JOGUINHO DO AMOR: CORAÇÃO FUGAZ
+        // 3. JOGUINHO DO AMOR: CORAÇÃO FUGAZ (RECOMPENSA)
         // ==========================================
         let pontosAmor = 0;
 
         function fugirCoracao() {
             const coracao = document.getElementById('alvo-coracao');
-            
-            // Define limites para o coração não sair de dentro do quadrado pontilhado
             const larguraMax = 85; 
             const alturaMax = 65;  
-            
             const aleatorioX = Math.floor(Math.random() * larguraMax);
             const aleatorioY = Math.floor(Math.random() * alturaMax);
-            
             coracao.style.left = aleatorioX + "%";
             coracao.style.top = aleatorioY + "%";
         }
@@ -446,78 +536,131 @@
         function ganharPonto() {
             pontosAmor++;
             document.getElementById('pontos-amor').innerText = pontosAmor;
-            
-            // Troca temporariamente o emoji para comemorar o clique
             const coracao = document.getElementById('alvo-coracao');
             coracao.innerText = '💖';
             
-            // Explode corações extras na tela
             for(let i = 0; i < 10; i++) {
                 setTimeout(criarCoracao, i * 50);
             }
 
             setTimeout(() => {
                 coracao.innerText = '❤️';
-                fugirCoracao(); // Muda de posição após ser pego
+                fugirCoracao();
             }, 300);
         }
 
         // ==========================================
-        // 4. CONFIGURE AQUI AS FASES DO SEU APP
+        // 4. CONFIGURAÇÃO DAS FASES (COM NOVA FASE DE JOGO)
         // ==========================================
         const fases = [
             {
+                tipo: "texto",
                 dica: "Onde foi nosso primeiro encontro?",
                 senha: "parque" 
             },
             {
+                tipo: "texto",
                 dica: "Qual a data do nosso namoro...? (dd/mm/aaaa)",
                 senha: "16/06/2016"
             },
             {
+                // NOVA FASE ADICIONADA AQUI!
+                tipo: "jogo_simbolos",
+                dica: "Desafio de Símbolos: Siga a ordem do nosso primeiro sentimento... ✨💖🌸",
+                senha: null // Não usa senha de texto
+            },
+            {
+                tipo: "texto",
                 dica: "Quem disse: te amo primeiro? ",
                 senha: "ele"
             }
         ];
 
         let faseAtual = 0;
+        let sequenciaAtual = [];
+        const sequenciaCorreta = ['✨', '💖', '🌸']; // Ordem que o jogador deve clicar
 
         function carregarFase() {
+            const fase = fases[faseAtual];
             document.getElementById('texto-progresso').innerText = `Nível ${faseAtual + 1} de ${fases.length}`;
-            document.getElementById('texto-dica').innerText = fases[faseAtual].dica;
-            document.getElementById('senha').value = ''; 
-            document.getElementById('senha').focus();
+            document.getElementById('texto-dica').innerText = fase.dica;
+            document.getElementById('mensagem-erro').style.display = 'none';
+            
+            if (fase.tipo === 'jogo_simbolos') {
+                // Esconde a área de texto, mostra o joguinho
+                document.getElementById('area-texto').style.display = 'none';
+                document.getElementById('area-simbolos').style.display = 'block';
+                sequenciaAtual = []; // Reseta a sequência do jogador
+            } else {
+                // Esconde o joguinho, mostra a área de texto
+                document.getElementById('area-texto').style.display = 'block';
+                document.getElementById('area-simbolos').style.display = 'none';
+                document.getElementById('senha').value = ''; 
+                document.getElementById('senha').focus();
+            }
         }
 
         carregarFase();
 
         // ==========================================
-        // 5. LÓGICA DE VALIDAÇÃO DE SENHA
+        // 5. LÓGICAS DE VALIDAÇÃO (TEXTO E SÍMBOLOS)
         // ==========================================
+        
+        function avancarFase() {
+            const erro = document.getElementById('mensagem-erro');
+            erro.style.display = 'none';
+            faseAtual++;
+
+            if (faseAtual < fases.length) {
+                carregarFase();
+            } else {
+                // MUDANÇA PARA O TEMA FOFO E SELEÇÃO DE RECOMPENSA
+                document.body.style.background = "linear-gradient(135deg, #ffc2d1, #ffe5ec, #e8dbfc)"; 
+                document.getElementById('tela-cofre').style.display = 'none';
+                document.getElementById('recompensa').style.display = 'block';
+                iniciarContador(); 
+            }
+        }
+
+        function mostrarErro(mensagem) {
+            const erro = document.getElementById('mensagem-erro');
+            const cofre = document.getElementById('tela-cofre');
+            erro.innerText = mensagem;
+            erro.style.display = 'block';
+            cofre.classList.remove('shake');
+            void cofre.offsetWidth; 
+            cofre.classList.add('shake');
+        }
+
+        // Validação da senha de texto original
         function verificarSenha() {
             const senhaDigitada = document.getElementById('senha').value.toLowerCase().trim();
-            const cofre = document.getElementById('tela-cofre');
-            const erro = document.getElementById('mensagem-erro');
-
             if (senhaDigitada === fases[faseAtual].senha) {
-                erro.style.display = 'none';
-                faseAtual++;
-
-                if (faseAtual < fases.length) {
-                    carregarFase();
-                } else {
-                    // MUDANÇA PARA O TEMA FOFO E SELEÇÃO DE RECOMPENSA
-                    document.body.style.background = "linear-gradient(135deg, #ffc2d1, #ffe5ec, #e8dbfc)"; 
-                    cofre.style.display = 'none';
-                    document.getElementById('recompensa').style.display = 'block';
-                    iniciarContador(); 
-                }
+                avancarFase();
             } else {
-                erro.style.display = 'block';
-                cofre.classList.remove('shake');
-                void cofre.offsetWidth; 
-                cofre.classList.add('shake');
+                mostrarErro("Acesso Negado. Senha incorreta.");
                 document.getElementById('senha').value = '';
+            }
+        }
+
+        // Validação do novo joguinho de símbolos
+        function clicarSimbolo(simbolo) {
+            sequenciaAtual.push(simbolo);
+            
+            // Verifica se a sequência até o momento está correta
+            for(let i = 0; i < sequenciaAtual.length; i++) {
+                if(sequenciaAtual[i] !== sequenciaCorreta[i]) {
+                    mostrarErro("Sequência incorreta! Tente novamente.");
+                    sequenciaAtual = []; // Zera a tentativa para ele tentar de novo
+                    return;
+                }
+            }
+
+            // Se chegou até aqui, a sequência está correta. 
+            // Vamos checar se ele já apertou todos os símbolos necessários:
+            if(sequenciaAtual.length === sequenciaCorreta.length) {
+                // Acertou tudo! Avança de fase
+                setTimeout(avancarFase, 300); // Dá um tempinho suave antes de trocar a tela
             }
         }
 
