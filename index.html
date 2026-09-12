@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso Restrito</title>
+    <title>Acesso Restrito - Firewall do Coração</title>
    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,16 +12,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Montserrat:wght@400;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 
     <style>
-        /* ESTILOS GERAIS E ANIMAÇÕES */
+        /* ESTILOS GERAIS E FUNDO COM FOTO */
         * {
             box-sizing: border-box;
             transition: all 0.3s ease;
         }
 
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            /* AQUI FICA A SUA FOTO DE FUNDO COM UMA MÁSCARA ESCURA PARA DAR LEITURA */
+            background: linear-gradient(rgba(15, 12, 41, 0.75), rgba(36, 36, 62, 0.85)), url('IMG_20260829_000757_786.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: #ffffff;
             font-family: 'Fira Code', monospace;
             display: flex;
@@ -34,33 +34,28 @@
             position: relative;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* EFEITO DE VIDRO (GLASSMORPHISM) */
+        /* EFEITO DE VIDRO REFINADO */
         .container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 40px 30px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6);
             width: 90%;
             max-width: 450px;
-            animation: fadeIn 1s ease-in-out;
+            animation: fadeIn 1.2s ease-out;
             z-index: 10;
         }
 
-        /* ESTILO FOFO PARA A TELA DE RECOMPENSA */
+        /* ESTILO PARA A TELA DE RECOMPENSA FINAL */
         .container.fofa {
             background: rgba(255, 240, 245, 0.85);
             border: 2px solid #ffb3c6;
             color: #ff477e;
-            box-shadow: 0 15px 35px rgba(255, 71, 126, 0.2);
+            box-shadow: 0 15px 35px rgba(255, 71, 126, 0.3);
+            backdrop-filter: blur(5px);
         }
 
         .container.fofa h2 {
@@ -83,12 +78,14 @@
             margin-top: 0;
             letter-spacing: 2px;
             text-transform: uppercase;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         p {
             font-size: 14px;
             line-height: 1.5;
-            color: #d1d1e0;
+            color: #e0e0e0;
         }
 
         .dica-texto {
@@ -96,6 +93,7 @@
             color: #00ffcc;
             margin: 20px 0;
             font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
         }
 
         /* INPUTS E BOTÕES */
@@ -105,17 +103,18 @@
             width: 100%;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.4);
             color: #00ffcc;
             font-size: 16px;
             font-family: 'Fira Code', monospace;
             text-align: center;
             outline: none;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
         }
 
         input:focus {
             border-color: #00ffcc;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4), inset 0 2px 5px rgba(0,0,0,0.5);
         }
 
         button {
@@ -131,48 +130,12 @@
             font-weight: bold;
             letter-spacing: 1px;
             box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+            text-transform: uppercase;
         }
 
         button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(233, 69, 96, 0.6);
-        }
-
-        /* GALERIA DE FOTOS (NOSSAS MEMÓRIAS) */
-        .galeria-memorias {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .titulo-galeria {
-            font-size: 14px;
-            font-family: 'Montserrat', sans-serif;
-            color: #ff7096;
-            margin-top: 0;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-        .fotos-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        .fotos-container img {
-            width: 90px;
-            height: 90px;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 2px solid #00ffcc;
-            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
-            transition: all 0.3s ease;
-        }
-        .fotos-container img:hover {
-            transform: scale(1.1);
-            border-color: #ff477e;
-            box-shadow: 0 8px 20px rgba(255, 71, 126, 0.5);
-            z-index: 2;
         }
 
         /* SEÇÃO DE SAUDADES */
@@ -197,6 +160,7 @@
         .contador-saudade {
             font-size: 12px;
             color: #ffb3c6;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
         .contador-saudade span {
@@ -204,41 +168,75 @@
             color: #ff477e;
         }
 
-        /* NOVA FASE: JOGO DE SÍMBOLOS */
-        #area-simbolos {
+        /* JOGO DA MEMÓRIA - NOVO E COMPLEXO */
+        #area-jogo-memoria {
+            display: none;
             margin: 20px 0;
             padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
         }
-        .container-simbolos {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+        
+        .grid-cartas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            perspective: 1000px;
         }
-        .simbolo-btn {
-            font-size: 35px;
+
+        .carta-container {
+            width: 100%;
+            aspect-ratio: 1;
+            background-color: transparent;
             cursor: pointer;
-            width: 60px;
-            height: 60px;
+        }
+
+        .carta-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .carta-container.virada .carta-inner {
+            transform: rotateY(180deg);
+        }
+
+        .carta-frente, .carta-verso {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
+            border-radius: 12px;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .carta-frente {
+            background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.2s ease;
-            user-select: none;
         }
-        .simbolo-btn:hover {
-            border-color: #ff7096;
-            background: rgba(255, 112, 150, 0.1);
-            transform: scale(1.15);
-            box-shadow: 0 0 15px rgba(255, 112, 150, 0.4);
+
+        .carta-frente:hover {
+            border-color: #00ffcc;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
         }
-        .simbolo-btn:active {
-            transform: scale(0.95);
+
+        .carta-verso {
+            background: rgba(255, 112, 150, 0.2);
+            border: 2px solid #ff7096;
+            transform: rotateY(180deg);
+        }
+
+        .carta-container.bloqueada {
+            pointer-events: none;
         }
 
         /* JOGUINHO DO AMOR (RECOMPENSA) */
@@ -278,28 +276,28 @@
             margin-top: 5px;
         }
 
-        /* MENSAGEM DE ERRO COM ANIMAÇÃO DE TREMER */
+        /* MENSAGEM DE ERRO */
         #mensagem-erro {
             color: #ff4d4d;
             display: none;
             margin-top: 15px;
             font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
         .shake {
-            animation: shake 0.5s;
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
         }
 
         @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            50% { transform: translateX(10px); }
-            75% { transform: translateX(-10px); }
-            100% { transform: translateX(0); }
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -322,7 +320,6 @@
             100% { transform: scale(1); }
         }
 
-        /* CHUVA DE CORAÇÕES */
         .coracao-caindo {
             position: absolute;
             top: -30px;
@@ -335,37 +332,21 @@
         }
 
         @keyframes queda {
-            to {
-                transform: translateY(105vh) rotate(360deg);
-            }
+            to { transform: translateY(105vh) rotate(360deg); }
         }
 
-        /* CONTADOR DE TEMPO FOFO */
-        .container.fofa .contador {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid #ffc2d1;
-            margin-top: 20px;
-        }
-
-        .container.fofa .tempo-titulo {
-            color: #ff477e;
-            font-weight: bold;
-        }
-
-        .container.fofa .tempo-numeros {
-            color: #ff477e;
-        }
-
-        .container.fofa .tempo-box span {
-            color: #ff7096;
-        }
-
+        /* CONTADORES */
         .contador {
             background: rgba(0, 0, 0, 0.3);
             padding: 20px;
             border-radius: 15px;
             margin-top: 25px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .container.fofa .contador {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid #ffc2d1;
         }
 
         .tempo-titulo {
@@ -375,31 +356,27 @@
             color: #00ffcc;
             margin-bottom: 10px;
         }
+        
+        .container.fofa .tempo-titulo { color: #ff477e; }
 
         .tempo-numeros {
             font-family: 'Fira Code', monospace;
             font-size: 18px;
-            color: #fff;
             display: flex;
             justify-content: space-around;
         }
+        
+        .container.fofa .tempo-numeros { color: #ff477e; }
 
-        .tempo-box {
-            display: flex;
-            flex-direction: column;
-        }
+        .tempo-box { display: flex; flex-direction: column; }
+        .tempo-box span { font-size: 10px; margin-top: 5px; }
+        .container.fofa .tempo-box span { color: #ff7096; }
 
-        .tempo-box span {
-            font-size: 10px;
-            color: #a3a3c2;
-            margin-top: 5px;
-        }
-
-        /* INDICADOR DE FASES */
         .progresso {
             font-size: 12px;
             color: #a3a3c2;
             margin-bottom: 15px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
     </style>
@@ -408,15 +385,6 @@
 
     <div class="container" id="tela-cofre">
         
-        <!-- NOVA GALERIA DE FOTOS -->
-        <div class="galeria-memorias">
-            <h3 class="titulo-galeria">Nossas Memórias ✨</h3>
-            <div class="fotos-container">
-                <img src="IMG_20260829_000757_786.jpg" alt="Nossa Memória 1">
-                <img src="IMG_20260829_000757_174.jpg" alt="Nossa Memória 2">
-            </div>
-        </div>
-
         <div class="secao-saudade">
             <button class="btn-saudade" onclick="marcarSaudade()">Estou com saudades! 🥺❤️</button>
             <div class="contador-saudade">
@@ -426,23 +394,21 @@
 
         <h2>🔒 FIREWALL ATIVADO</h2>
         <div class="progresso" id="texto-progresso">Nível 1 de X</div>
-        <p>Acesso restrito. Insira a chave de segurança para avançar.</p>
+        <p>Acesso restrito. Resolva o desafio para descriptografar a camada.</p>
        
         <div class="dica-texto" id="texto-dica">Carregando dica...</div>
        
         <!-- ÁREA PADRÃO (SENHA DE TEXTO) -->
         <div id="area-texto">
-            <input type="password" id="senha" placeholder="Digite a senha..." autocomplete="off">
+            <input type="password" id="senha" placeholder="Digite a chave de acesso..." autocomplete="off">
             <br>
             <button onclick="verificarSenha()">DESCRIPTOGRAFAR</button>
         </div>
 
-        <!-- NOVA ÁREA (JOGO DE SÍMBOLOS - INVISÍVEL POR PADRÃO) -->
-        <div id="area-simbolos" style="display: none;">
-            <div class="container-simbolos">
-                <div class="simbolo-btn" onclick="clicarSimbolo('✨')">✨</div>
-                <div class="simbolo-btn" onclick="clicarSimbolo('💖')">💖</div>
-                <div class="simbolo-btn" onclick="clicarSimbolo('🌸')">🌸</div>
+        <!-- ÁREA NOVA (JOGO DA MEMÓRIA) -->
+        <div id="area-jogo-memoria">
+            <div class="grid-cartas" id="grid-memoria">
+                <!-- Cartas geradas via JavaScript para garantir a randomização -->
             </div>
         </div>
 
@@ -453,7 +419,7 @@
         <div class="coracao-principal">❤️</div>
         <h2>Acesso Concedido!</h2>
         <p style="font-size: 16px; font-weight: bold;">Você invadiu meu coração com sucesso.</p>
-        <p style="font-size: 13px;">Eu amo você mais do que tudo! Para comemorar, tente pegar o meu coração no joguinho abaixo:</p>
+        <p style="font-size: 13px;">Para comemorar, tente pegar o meu coração no joguinho abaixo:</p>
        
         <div class="area-jogo">
             <div class="titulo-jogo">✨ Pegue meu Coração ✨</div>
@@ -474,36 +440,25 @@
 
     <script>
         // ==========================================
-        // 1. CHUVA CONSTANTE DE CORAÇÕES
+        // 1. EFEITOS DE FUNDO (CORAÇÕES)
         // ==========================================
         function criarCoracao() {
             const coracao = document.createElement('div');
             coracao.classList.add('coracao-caindo');
-            
             const modelos = ['❤️', '💖', '💗', '💕', '✨'];
             coracao.innerText = modelos[Math.floor(Math.random() * modelos.length)];
-            
             coracao.style.left = Math.random() * 100 + "vw";
-            
-            const tamanho = Math.random() * 20 + 12; 
-            coracao.style.fontSize = tamanho + "px";
-            
+            coracao.style.fontSize = (Math.random() * 20 + 12) + "px";
             const duracao = Math.random() * 3 + 4; 
             coracao.style.animationDuration = duracao + "s";
-            
             coracao.style.opacity = Math.random() * 0.6 + 0.4;
-
             document.body.appendChild(coracao);
-
-            setTimeout(() => {
-                coracao.remove();
-            }, duracao * 1000);
+            setTimeout(() => { coracao.remove(); }, duracao * 1000);
         }
-
-        setInterval(criarCoracao, 350);
+        setInterval(criarCoracao, 400);
 
         // ==========================================
-        // 2. LÓGICA DO MARCADOR DE SAUDADES
+        // 2. MARCADOR DE SAUDADES
         // ==========================================
         let cliquesSaudade = localStorage.getItem('contadorSaudades') || 0;
         document.getElementById('num-saudades').innerText = cliquesSaudade;
@@ -512,73 +467,122 @@
             cliquesSaudade++;
             document.getElementById('num-saudades').innerText = cliquesSaudade;
             localStorage.setItem('contadorSaudades', cliquesSaudade);
-            
-            for(let i = 0; i < 6; i++) {
-                setTimeout(criarCoracao, i * 80);
-            }
+            for(let i = 0; i < 8; i++) { setTimeout(criarCoracao, i * 60); }
         }
 
         // ==========================================
-        // 3. JOGUINHO DO AMOR: CORAÇÃO FUGAZ (RECOMPENSA)
+        // 3. MINIGAME FINAL (RECOMPENSA)
         // ==========================================
         let pontosAmor = 0;
-
         function fugirCoracao() {
             const coracao = document.getElementById('alvo-coracao');
-            const larguraMax = 85; 
-            const alturaMax = 65;  
-            const aleatorioX = Math.floor(Math.random() * larguraMax);
-            const aleatorioY = Math.floor(Math.random() * alturaMax);
-            coracao.style.left = aleatorioX + "%";
-            coracao.style.top = aleatorioY + "%";
+            coracao.style.left = Math.floor(Math.random() * 85) + "%";
+            coracao.style.top = Math.floor(Math.random() * 65) + "%";
         }
-
         function ganharPonto() {
             pontosAmor++;
             document.getElementById('pontos-amor').innerText = pontosAmor;
             const coracao = document.getElementById('alvo-coracao');
             coracao.innerText = '💖';
-            
-            for(let i = 0; i < 10; i++) {
-                setTimeout(criarCoracao, i * 50);
-            }
-
-            setTimeout(() => {
-                coracao.innerText = '❤️';
-                fugirCoracao();
-            }, 300);
+            for(let i = 0; i < 10; i++) { setTimeout(criarCoracao, i * 50); }
+            setTimeout(() => { coracao.innerText = '❤️'; fugirCoracao(); }, 300);
         }
 
         // ==========================================
-        // 4. CONFIGURAÇÃO DAS FASES (COM NOVA FASE DE JOGO)
+        // 4. CONFIGURAÇÃO DAS FASES E JOGO DA MEMÓRIA
         // ==========================================
         const fases = [
-            {
-                tipo: "texto",
-                dica: "Onde foi nosso primeiro encontro?",
-                senha: "parque" 
-            },
-            {
-                tipo: "texto",
-                dica: "Qual a data do nosso namoro...? (dd/mm/aaaa)",
-                senha: "16/06/2016"
-            },
-            {
-                // NOVA FASE ADICIONADA AQUI!
-                tipo: "jogo_simbolos",
-                dica: "Desafio de Símbolos: Siga a ordem do nosso primeiro sentimento... ✨💖🌸",
-                senha: null // Não usa senha de texto
-            },
-            {
-                tipo: "texto",
-                dica: "Quem disse: te amo primeiro? ",
-                senha: "ele"
-            }
+            { tipo: "texto", dica: "Onde foi nosso primeiro encontro?", senha: "parque" },
+            { tipo: "texto", dica: "Qual a data do nosso namoro...? (dd/mm/aaaa)", senha: "16/06/2016" },
+            { tipo: "jogo_memoria", dica: "Descriptografia Avançada: Encontre os pares para desbloquear esta camada.", senha: null },
+            { tipo: "texto", dica: "Quem disse: te amo primeiro? ", senha: "ele" }
         ];
 
         let faseAtual = 0;
-        let sequenciaAtual = [];
-        const sequenciaCorreta = ['✨', '💖', '🌸']; // Ordem que o jogador deve clicar
+        let primeiraCarta = null;
+        let segundaCarta = null;
+        let bloqueioTabuleiro = false;
+        let paresEncontrados = 0;
+
+        const emojisMemoria = ['❤️', '❤️', '✨', '✨', '🌸', '🌸'];
+
+        function inicializarJogoMemoria() {
+            const grid = document.getElementById('grid-memoria');
+            grid.innerHTML = '';
+            paresEncontrados = 0;
+            primeiraCarta = null;
+            segundaCarta = null;
+            bloqueioTabuleiro = false;
+
+            // Embaralha as cartas
+            const emojisEmbaralhados = emojisMemoria.sort(() => 0.5 - Math.random());
+
+            emojisEmbaralhados.forEach((emoji) => {
+                const carta = document.createElement('div');
+                carta.classList.add('carta-container');
+                carta.dataset.valor = emoji;
+                
+                carta.innerHTML = `
+                    <div class="carta-inner">
+                        <div class="carta-frente">🔒</div>
+                        <div class="carta-verso">${emoji}</div>
+                    </div>
+                `;
+                
+                carta.addEventListener('click', virarCarta);
+                grid.appendChild(carta);
+            });
+        }
+
+        function virarCarta() {
+            if (bloqueioTabuleiro) return;
+            if (this === primeiraCarta) return;
+
+            this.classList.add('virada');
+
+            if (!primeiraCarta) {
+                primeiraCarta = this;
+                return;
+            }
+
+            segundaCarta = this;
+            verificarPar();
+        }
+
+        function verificarPar() {
+            let ehPar = primeiraCarta.dataset.valor === segundaCarta.dataset.valor;
+            ehPar ? desabilitarCartas() : desvirarCartas();
+        }
+
+        function desabilitarCartas() {
+            primeiraCarta.removeEventListener('click', virarCarta);
+            segundaCarta.removeEventListener('click', virarCarta);
+            primeiraCarta.classList.add('bloqueada');
+            segundaCarta.classList.add('bloqueada');
+            paresEncontrados++;
+            
+            resetarTabuleiro();
+
+            // Se encontrou os 3 pares, avança de fase com um pequeno delay
+            if (paresEncontrados === 3) {
+                setTimeout(() => {
+                    avancarFase();
+                }, 1000);
+            }
+        }
+
+        function desvirarCartas() {
+            bloqueioTabuleiro = true;
+            setTimeout(() => {
+                primeiraCarta.classList.remove('virada');
+                segundaCarta.classList.remove('virada');
+                resetarTabuleiro();
+            }, 1000);
+        }
+
+        function resetarTabuleiro() {
+            [primeiraCarta, segundaCarta, bloqueioTabuleiro] = [null, null, false];
+        }
 
         function carregarFase() {
             const fase = fases[faseAtual];
@@ -586,113 +590,10 @@
             document.getElementById('texto-dica').innerText = fase.dica;
             document.getElementById('mensagem-erro').style.display = 'none';
             
-            if (fase.tipo === 'jogo_simbolos') {
-                // Esconde a área de texto, mostra o joguinho
+            if (fase.tipo === 'jogo_memoria') {
                 document.getElementById('area-texto').style.display = 'none';
-                document.getElementById('area-simbolos').style.display = 'block';
-                sequenciaAtual = []; // Reseta a sequência do jogador
+                document.getElementById('area-jogo-memoria').style.display = 'block';
+                inicializarJogoMemoria();
             } else {
-                // Esconde o joguinho, mostra a área de texto
                 document.getElementById('area-texto').style.display = 'block';
-                document.getElementById('area-simbolos').style.display = 'none';
-                document.getElementById('senha').value = ''; 
-                document.getElementById('senha').focus();
-            }
-        }
-
-        carregarFase();
-
-        // ==========================================
-        // 5. LÓGICAS DE VALIDAÇÃO (TEXTO E SÍMBOLOS)
-        // ==========================================
-        
-        function avancarFase() {
-            const erro = document.getElementById('mensagem-erro');
-            erro.style.display = 'none';
-            faseAtual++;
-
-            if (faseAtual < fases.length) {
-                carregarFase();
-            } else {
-                // MUDANÇA PARA O TEMA FOFO E SELEÇÃO DE RECOMPENSA
-                document.body.style.background = "linear-gradient(135deg, #ffc2d1, #ffe5ec, #e8dbfc)"; 
-                document.getElementById('tela-cofre').style.display = 'none';
-                document.getElementById('recompensa').style.display = 'block';
-                iniciarContador(); 
-            }
-        }
-
-        function mostrarErro(mensagem) {
-            const erro = document.getElementById('mensagem-erro');
-            const cofre = document.getElementById('tela-cofre');
-            erro.innerText = mensagem;
-            erro.style.display = 'block';
-            cofre.classList.remove('shake');
-            void cofre.offsetWidth; 
-            cofre.classList.add('shake');
-        }
-
-        // Validação da senha de texto original
-        function verificarSenha() {
-            const senhaDigitada = document.getElementById('senha').value.toLowerCase().trim();
-            if (senhaDigitada === fases[faseAtual].senha) {
-                avancarFase();
-            } else {
-                mostrarErro("Acesso Negado. Senha incorreta.");
-                document.getElementById('senha').value = '';
-            }
-        }
-
-        // Validação do novo joguinho de símbolos
-        function clicarSimbolo(simbolo) {
-            sequenciaAtual.push(simbolo);
-            
-            // Verifica se a sequência até o momento está correta
-            for(let i = 0; i < sequenciaAtual.length; i++) {
-                if(sequenciaAtual[i] !== sequenciaCorreta[i]) {
-                    mostrarErro("Sequência incorreta! Tente novamente.");
-                    sequenciaAtual = []; // Zera a tentativa para ele tentar de novo
-                    return;
-                }
-            }
-
-            // Se chegou até aqui, a sequência está correta. 
-            // Vamos checar se ele já apertou todos os símbolos necessários:
-            if(sequenciaAtual.length === sequenciaCorreta.length) {
-                // Acertou tudo! Avança de fase
-                setTimeout(avancarFase, 300); // Dá um tempinho suave antes de trocar a tela
-            }
-        }
-
-        document.getElementById("senha").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                verificarSenha();
-            }
-        });
-
-        // ==========================================
-        // 6. LÓGICA DO CONTADOR DE TEMPO
-        // ==========================================
-        function iniciarContador() {
-            const dataInicio = new Date(2026, 5, 19, 11, 40, 0).getTime();
-
-            setInterval(function() {
-                const agora = new Date().getTime();
-                const diferenca = agora - dataInicio;
-
-                const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
-                const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
-                const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
-
-                document.getElementById("dias").innerText = dias.toString().padStart(2, '0');
-                document.getElementById("horas").innerText = horas.toString().padStart(2, '0');
-                document.getElementById("minutos").innerText = minutos.toString().padStart(2, '0');
-                document.getElementById("segundos").innerText = segundos.toString().padStart(2, '0');
-            }, 1000); 
-        }
-    </script>
-
-</body>
-</html>
+  
